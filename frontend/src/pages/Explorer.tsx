@@ -20,15 +20,15 @@ export default function Explorer() {
   if (!data) return <div className="p-8">Loading...</div>;
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-black border-b border-surface-600 pb-2">Storage Explorer</h1>
-      <div className="p-6 bg-surface-800 border border-surface-600">
-        <h2 className="text-lg font-bold mb-4">Top Directories</h2>
-        <ul className="space-y-2">
+    <div className="space-y-8">
+      <h1 className="text-3xl font-light tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 border-b border-white/10 pb-4">Storage Explorer</h1>
+      <div className="p-8 bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl">
+        <h2 className="text-xl font-light text-white mb-6 uppercase tracking-widest">Top Directories</h2>
+        <ul className="space-y-3">
           {data.directories.map((dir, i) => (
-            <li key={i} className="flex justify-between items-center p-3 border border-surface-600 hover:bg-surface-700 transition-colors">
-              <span className="font-mono text-sm">{dir.top_dir}</span>
-              <span className="font-bold tabular-nums">{formatBytes(dir.total_size)}</span>
+            <li key={i} className="flex justify-between items-center p-4 rounded-xl border border-white/5 hover:border-indigo-500/30 hover:bg-white/5 hover:-translate-y-0.5 transition-all duration-300">
+              <span className="font-mono text-sm text-gray-300">{dir.top_dir}</span>
+              <span className="font-light text-lg text-indigo-300 tabular-nums drop-shadow-[0_0_8px_rgba(99,102,241,0.4)]">{formatBytes(dir.total_size)}</span>
             </li>
           ))}
         </ul>

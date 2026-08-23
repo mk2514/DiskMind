@@ -1,9 +1,9 @@
 export default function Simulator() {
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-black border-b border-surface-600 pb-2">What-If Simulator</h1>
-      <div className="p-6 bg-surface-800 border border-surface-600">
-        <p className="text-text-muted">Interactive simulator will appear here.</p>
+    <div className="space-y-8">
+      <h1 className="text-3xl font-light tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 border-b border-white/10 pb-4">What-If Simulator</h1>
+      <div className="p-8 bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl shadow-2xl flex items-center justify-center min-h-[400px]">
+        <p className="text-gray-500 font-light tracking-widest uppercase">Interactive simulator will appear here.</p>
       </div>
     </div>
   );

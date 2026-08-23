@@ -12,21 +12,21 @@ const NAV_ITEMS = [
 
 export default function Sidebar() {
   return (
-    <div className="w-64 bg-surface-800 border-r border-surface-600 flex flex-col h-screen">
-      <div className="p-6 flex items-center gap-3 border-b border-surface-600">
-        <Sparkles className="w-6 h-6 text-black" />
-        <div className="text-black font-bold text-lg leading-tight">DiskMind</div>
+    <div className="w-64 bg-black/40 backdrop-blur-md border-r border-white/10 flex flex-col h-screen">
+      <div className="p-6 flex items-center gap-3 border-b border-white/10">
+        <Sparkles className="w-6 h-6 text-indigo-400 drop-shadow-[0_0_10px_rgba(99,102,241,0.8)]" />
+        <div className="text-white font-bold text-xl tracking-wider uppercase drop-shadow-md">DiskMind</div>
       </div>
-      <nav className="flex-1 p-4 space-y-1 overflow-y-auto">
+      <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
         {NAV_ITEMS.map((item) => (
           <NavLink
             key={item.path}
             to={item.path}
             className={({ isActive }) =>
-              `flex items-center gap-3 px-3 py-2.5 rounded-none font-medium transition-all ${
+              `flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
                 isActive
-                  ? 'bg-black text-white'
-                  : 'text-text-muted hover:bg-surface-700 hover:text-black'
+                  ? 'bg-indigo-500/20 text-indigo-300 border border-indigo-500/30 shadow-[0_0_15px_rgba(99,102,241,0.15)]'
+                  : 'text-gray-400 hover:bg-white/5 hover:text-white border border-transparent'
               }`
             }
           >
@@ -35,7 +35,7 @@ export default function Sidebar() {
           </NavLink>
         ))}
       </nav>
-      <div className="p-4 border-t border-surface-600 text-xs text-text-muted">
+      <div className="p-4 border-t border-white/10 text-xs text-gray-500 text-center tracking-widest uppercase">
         DiskMind MVP v1.0
       </div>
     </div>

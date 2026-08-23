@@ -20,32 +20,33 @@ export default function Overview() {
   if (!data) return <div className="p-8">Loading...</div>;
 
   return (
-    <div className="space-y-6">
-      <h1 className="text-2xl font-bold text-black border-b border-surface-600 pb-2">Storage Overview</h1>
+    <div className="space-y-8">
+      <h1 className="text-3xl font-light tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 border-b border-white/10 pb-4">Storage Overview</h1>
       <div className="grid grid-cols-3 gap-6">
-        <div className="p-6 bg-surface-800 border border-surface-600">
-          <div className="text-sm text-text-muted">Total Space</div>
-          <div className="text-2xl font-bold text-black">{formatBytes(data.summary.total_bytes)}</div>
+        <div className="p-6 bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl hover:-translate-y-1 hover:bg-white/5 transition-all duration-300 shadow-lg">
+          <div className="text-sm text-gray-400 uppercase tracking-widest mb-2">Total Space</div>
+          <div className="text-3xl font-light text-white">{formatBytes(data.summary.total_bytes)}</div>
         </div>
-        <div className="p-6 bg-surface-800 border border-surface-600">
-          <div className="text-sm text-text-muted">Used Space</div>
-          <div className="text-2xl font-bold text-black">{formatBytes(data.summary.used_bytes)}</div>
+        <div className="p-6 bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl hover:-translate-y-1 hover:bg-white/5 transition-all duration-300 shadow-lg">
+          <div className="text-sm text-gray-400 uppercase tracking-widest mb-2">Used Space</div>
+          <div className="text-3xl font-light text-white">{formatBytes(data.summary.used_bytes)}</div>
         </div>
-        <div className="p-6 bg-surface-800 border border-surface-600">
-          <div className="text-sm text-text-muted">Free Space</div>
-          <div className="text-2xl font-bold text-black">{formatBytes(data.summary.free_bytes)}</div>
+        <div className="p-6 bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl hover:-translate-y-1 hover:bg-white/5 transition-all duration-300 shadow-lg">
+          <div className="text-sm text-gray-400 uppercase tracking-widest mb-2">Free Space</div>
+          <div className="text-3xl font-light text-indigo-300 drop-shadow-[0_0_10px_rgba(99,102,241,0.5)]">{formatBytes(data.summary.free_bytes)}</div>
         </div>
-        <div className="p-6 bg-surface-800 border border-surface-600">
-          <div className="text-sm text-text-muted">Utilization</div>
-          <div className="text-2xl font-bold text-black">{data.summary.utilization_pct}%</div>
+        <div className="p-6 bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl hover:-translate-y-1 hover:bg-white/5 transition-all duration-300 shadow-lg">
+          <div className="text-sm text-gray-400 uppercase tracking-widest mb-2">Utilization</div>
+          <div className="text-3xl font-light text-white">{data.summary.utilization_pct}%</div>
         </div>
-        <div className="p-6 bg-surface-800 border border-surface-600">
-          <div className="text-sm text-text-muted">Pending AI Recommendations</div>
-          <div className="text-2xl font-bold text-black">{data.summary.pending_recommendations}</div>
+        <div className="p-6 bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl hover:-translate-y-1 hover:bg-white/5 transition-all duration-300 shadow-lg">
+          <div className="text-sm text-gray-400 uppercase tracking-widest mb-2">AI Recommendations</div>
+          <div className="text-3xl font-light text-white">{data.summary.pending_recommendations}</div>
         </div>
-        <div className="p-6 bg-surface-800 border border-surface-600">
-          <div className="text-sm text-text-muted">Health Score</div>
-          <div className="text-2xl font-bold text-black">{data.summary.health_score}/100</div>
+        <div className="p-6 bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl hover:-translate-y-1 hover:bg-white/5 transition-all duration-300 shadow-lg relative overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-transparent"></div>
+          <div className="text-sm text-gray-400 uppercase tracking-widest mb-2 relative z-10">Health Score</div>
+          <div className="text-3xl font-light text-white relative z-10">{data.summary.health_score}<span className="text-xl text-gray-500">/100</span></div>
         </div>
       </div>
     </div>

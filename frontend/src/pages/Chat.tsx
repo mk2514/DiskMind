@@ -24,24 +24,28 @@ export default function Chat() {
 
   return (
     <div className="flex flex-col h-[calc(100vh-4rem)]">
-      <h1 className="text-2xl font-bold text-black border-b border-surface-600 pb-2 mb-4">AI Copilot</h1>
-      <div className="flex-1 overflow-y-auto p-6 bg-surface-800 border border-surface-600 mb-4 space-y-4">
+      <h1 className="text-3xl font-light tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 border-b border-white/10 pb-4 mb-6">AI Copilot</h1>
+      <div className="flex-1 overflow-y-auto p-6 bg-black/40 backdrop-blur-xl border border-white/10 rounded-2xl mb-6 space-y-4 shadow-2xl">
         {messages.map((m, i) => (
-          <div key={i} className={`p-3 max-w-[80%] ${m.role === 'user' ? 'bg-black text-white ml-auto' : 'bg-surface-700 text-black border border-surface-600'}`}>
+          <div key={i} className={`p-4 max-w-[80%] rounded-2xl text-sm leading-relaxed ${m.role === 'user' ? 'bg-indigo-500/20 border border-indigo-500/30 text-white ml-auto rounded-tr-sm shadow-[0_0_15px_rgba(99,102,241,0.15)]' : 'bg-white/5 text-gray-200 border border-white/10 rounded-tl-sm shadow-lg'}`}>
             {m.content}
           </div>
         ))}
-        {messages.length === 0 && <p className="text-text-muted">Ask DiskMind a question about your storage!</p>}
+        {messages.length === 0 && (
+          <div className="flex items-center justify-center h-full text-gray-500 font-light">
+            Ask DiskMind a question about your storage!
+          </div>
+        )}
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-3">
         <input 
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-          className="flex-1 p-3 border border-surface-600 bg-surface-800 focus:outline-none focus:border-black"
+          className="flex-1 p-4 rounded-xl border border-white/10 bg-black/40 backdrop-blur-md text-white placeholder-gray-500 focus:outline-none focus:border-indigo-500/50 focus:ring-1 focus:ring-indigo-500/50 transition-all duration-300 shadow-lg"
           placeholder="Ask a question..."
         />
-        <button onClick={handleSend} className="px-6 py-3 bg-black text-white font-bold hover:bg-gray-800">
+        <button onClick={handleSend} className="px-8 py-4 rounded-xl bg-indigo-500/20 text-indigo-300 border border-indigo-500/50 font-bold hover:bg-indigo-500 hover:text-white hover:shadow-[0_0_20px_rgba(99,102,241,0.6)] transition-all duration-300">
           Send
         </button>
       </div>
