@@ -228,7 +228,7 @@ export const getRecommendations = () =>
   apiWithFallback('/api/ai/recommendations', () => MOCK_RECOMMENDATIONS);
 
 export const sendChat = async (messages: ChatMessage[]) => {
-  if (USE_MOCK) {
+  if (isDemoMode()) {
     const lastMsg = messages[messages.length - 1]?.content?.toLowerCase() || '';
     let response = '';
     if (lastMsg.includes('why') && lastMsg.includes('full')) {
