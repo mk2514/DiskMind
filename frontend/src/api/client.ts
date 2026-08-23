@@ -7,7 +7,11 @@ import type {
 } from '../types';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
-const USE_MOCK = true; // Demo mode enabled by default for presentation
+
+export const isDemoMode = () => {
+  const stored = localStorage.getItem('diskmind_demo_mode');
+  return stored === null ? true : stored === 'true';
+};
 
 async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
   const res = await fetch(`${API_BASE_URL}${path}`, {
@@ -19,7 +23,7 @@ async function apiFetch<T>(path: string, options?: RequestInit): Promise<T> {
 }
 
 async function apiWithFallback<T>(path: string, mockFn: () => T, options?: RequestInit): Promise<T> {
-  if (USE_MOCK) return mockFn();
+  if (isDemoMode()) return mockFn();
   try {
     return await apiFetch<T>(path, options);
   } catch {

@@ -1,5 +1,7 @@
 import { NavLink } from 'react-router-dom';
 import { Home, Folder, LineChart, ShieldAlert, Sparkles, MessageSquare } from 'lucide-react';
+import { useState } from 'react';
+import { isDemoMode } from '../api/client';
 
 const NAV_ITEMS = [
   { name: 'Overview', path: '/overview', icon: Home },
@@ -11,6 +13,15 @@ const NAV_ITEMS = [
 ];
 
 export default function Sidebar() {
+  const [demo, setDemo] = useState(isDemoMode());
+
+  const toggleDemo = () => {
+    const newVal = !demo;
+    setDemo(newVal);
+    localStorage.setItem('diskmind_demo_mode', newVal.toString());
+    window.location.reload();
+  };
+
   return (
     <div className="w-64 bg-black/40 backdrop-blur-md border-r border-white/10 flex flex-col h-screen">
       <div className="p-6 flex items-center gap-3 border-b border-white/10">
@@ -35,8 +46,19 @@ export default function Sidebar() {
           </NavLink>
         ))}
       </nav>
-      <div className="p-4 border-t border-white/10 text-xs text-gray-500 text-center tracking-widest uppercase">
-        DiskMind MVP v1.0
+      <div className="p-4 border-t border-white/10 flex flex-col gap-4">
+        <div className="flex items-center justify-between">
+          <span className="text-sm font-medium text-gray-400 tracking-widest uppercase">Demo Mode</span>
+          <button 
+            onClick={toggleDemo}
+            className={`w-12 h-6 rounded-full p-1 transition-colors duration-300 ${demo ? 'bg-indigo-500' : 'bg-gray-600'}`}
+          >
+            <div className={`w-4 h-4 rounded-full bg-white transition-transform duration-300 ${demo ? 'translate-x-6' : 'translate-x-0'}`} />
+          </button>
+        </div>
+        <div className="text-xs text-gray-500 text-center tracking-widest uppercase">
+          DiskMind MVP v1.0
+        </div>
       </div>
     </div>
   );

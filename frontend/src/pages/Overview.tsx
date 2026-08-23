@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { getOverview } from '../api/client';
+import { getOverview, isDemoMode } from '../api/client';
 import type { StorageSummary, Forecast } from '../types';
 import { HardDrive, Database, ShieldCheck, Activity, Sparkles, HeartPulse } from 'lucide-react';
+import SetupGuide from '../components/SetupGuide';
 
 function formatBytes(bytes: number) {
   if (bytes === 0) return '0 B';
@@ -13,16 +14,44 @@ function formatBytes(bytes: number) {
 
 export default function Overview() {
   const [data, setData] = useState<{ summary: StorageSummary, forecast: Forecast } | null>(null);
+  const [error, setError] = useState<string | undefined>(undefined);
+
+  const loadData = () => {
+    getOverview()
+      .then((d) => {
+        setData(d);
+        setError(undefined);
+      })
+      .catch((e) => setError(e.message));
+  };
 
   useEffect(() => {
-    getOverview().then(setData).catch(console.error);
+    loadData();
+    if (!isDemoMode()) {
+      const interval = setInterval(loadData, 3000);
+      return () => clearInterval(interval);
+    }
   }, []);
 
-  if (!data) return <div className="p-8">Loading...</div>;
+  const needsSetup = !isDemoMode() && (!data || !data.summary || data.summary.total_bytes === null || data.summary.total_bytes === undefined);
+
+  if (needsSetup) {
+    return <SetupGuide error={error} />;
+  }
+
+  if (!data) return <div className="p-8 text-gray-500">Loading...</div>;
 
   return (
     <div className="space-y-8">
-      <h1 className="text-3xl font-light tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400 border-b border-white/10 pb-4">Storage Overview</h1>
+      <div className="flex items-center justify-between border-b border-white/10 pb-4">
+        <h1 className="text-3xl font-light tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Storage Overview</h1>
+        {!isDemoMode() && (
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-emerald-500/10 border border-emerald-500/30 rounded-full">
+            <div className="w-2 h-2 rounded-full bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse"></div>
+            <span className="text-xs text-emerald-300 font-medium tracking-wide uppercase">Live Connection Active</span>
+          </div>
+        )}
+      </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         
         {/* Total Space */}
