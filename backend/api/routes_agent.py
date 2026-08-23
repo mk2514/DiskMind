@@ -24,12 +24,11 @@ class AgentPayload(BaseModel):
 VALID_TOKEN = "default-dev-token"
 
 @router.post("/upload")
-async def upload_metrics(payload: AgentPayload):
+async def upload_metrics(payload: AgentPayload, db=Depends(get_db)):
     if payload.token != VALID_TOKEN:
         raise HTTPException(status_code=401, detail="Invalid agent token")
         
-    async with get_db() as db:
-        await db.execute("""
+    await db.execute("""
             INSERT INTO storage_snapshots(
                 recorded_at, mount_point, total_bytes, used_bytes, free_bytes,
                 file_count, dir_count, new_files_today, deleted_files_today,
@@ -48,6 +47,6 @@ async def upload_metrics(payload: AgentPayload):
             payload.daily_growth_bytes,
             payload.disk_info.utilization_pct,
         ))
-        await db.commit()
+    await db.commit()
         
     return {"status": "success"}
