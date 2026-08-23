@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    @apply bg-surface-900 text-text-main font-sans;
+    background: #ffffff;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { @apply bg-black/10 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-black/20; }
+}
+
+@layer components {
+  .glass-card {
+    @apply bg-surface-800 border border-surface-600 rounded-none shadow-none;
+  }
+
+  .brand-button {
+    @apply px-4 py-2 bg-black hover:bg-gray-800 text-white font-medium rounded-none transition-all;
+  }
+
+  .ghost-button {
+    @apply px-4 py-2 text-text-muted border border-surface-600 hover:bg-surface-700 rounded-none transition-all;
+  }
+}
+
+/* Prose overrides for light mode markdown */
+.prose p { @apply text-text-muted; }
+.prose strong { @apply text-black font-semibold; }
+.prose code { @apply text-black bg-surface-700 px-1 py-0.5 rounded-none text-xs border border-surface-600; }
+.prose ul { @apply space-y-1; }
+.prose li { @apply text-text-muted; }
